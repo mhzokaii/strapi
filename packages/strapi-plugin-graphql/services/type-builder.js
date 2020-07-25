@@ -95,9 +95,9 @@ module.exports = {
       }
 
       if (repeatable === true) {
-        return `[${typeName}]`;
+        return `[${typeName}!]${required ? '!' : ''}`;
       }
-      return `${typeName}`;
+      return `${typeName}${required ? '!' : ''}`;
     }
 
     if (attribute.type === 'dynamiczone') {
@@ -111,7 +111,7 @@ module.exports = {
         typeName = `${unionName}Input!`;
       }
 
-      return `[${typeName}]${required ? '!' : ''}`;
+      return `[${typeName}!]${required ? '!' : ''}`;
     }
 
     const ref = attribute.model || attribute.collection;
@@ -124,10 +124,10 @@ module.exports = {
 
       if (plural) {
         if (rootType === 'mutation') {
-          return '[ID]';
+          return '[ID!]!';
         }
 
-        return `[${globalId}]`;
+        return `[${globalId}!]!`;
       }
 
       if (rootType === 'mutation') {
@@ -138,10 +138,10 @@ module.exports = {
     }
 
     if (rootType === 'mutation') {
-      return attribute.model ? 'ID' : '[ID]';
+      return attribute.model ? 'ID' : '[ID!]';
     }
 
-    return attribute.model ? 'Morph' : '[Morph]';
+    return attribute.model ? 'Morph' : '[Morph!]';
   },
 
   /**
